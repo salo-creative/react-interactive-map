@@ -1,0 +1,15 @@
+{
+  "eslint.enable": true,
+  "workbench.colorCustomizations": {
+    // statusBar
+    "statusBar.background": "#00aced",
+    "statusBar.foreground": "#fff",
+    "statusBarItem.activeBackground": "#0078a6",
+    "statusBarItem.hoverBackground": "#009bd5",
+    // titleBar
+    "titleBar.activeBackground": "#00aced",
+    "titleBar.inactiveBackground": "#00aced",
+    "titleBar.activeForeground": "#fff"
+  }
+}
+

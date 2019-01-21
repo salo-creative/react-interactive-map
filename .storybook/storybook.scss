@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,600,700');
+
+html {
+  min-height: 100%;
+  padding: 50px;
+}
+
+h2, h3 {
+  margin: 30px 0 10px !important;
+  text-transform: none !important;
+}
+
+h1 + h2 {
+  margin-top: 0 !important;
+}

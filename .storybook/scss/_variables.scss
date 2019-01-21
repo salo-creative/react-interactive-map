@@ -1,0 +1,101 @@
+// ================= //
+// == C O L O R S == //
+// ================= //
+
+// Global colors
+$white: #fff;
+$black: #000;
+
+// Brand colors
+// Naming convention = $lush-color-percentage
+$lush-red: #D0021B;
+$lush-green: #00A44C;
+$lush-amber: #FF9800;
+$lush-silver: #F7F8F9;
+$lush-black-80: #333333;
+$lush-black-44: #8F8F8F;
+$lush-black-20: #CECECE;
+$lush-black-8: #EAEAEA;
+$lush-black-3: #F7F8F9;
+$lush-cool-grey: #F6F7FB;
+
+// =============================== //
+// == F O N T   S E T T I N G S == //
+// =============================== //
+$font-size-base: 10;
+$font-size-modifier: 1.7px;
+
+$base-font-size: $font-size-base;
+$base-font-family: 'HelveticaNeue', Helvetica, sans-serif;
+$base-font-size: 1.7;
+$base-line-height: (29/17);
+
+$heading-font-family: 'HelveticaNeue', Helvetica, sans-serif;
+$heading-font-weight: 600;
+
+$body-font-family: 'HelveticaNeue', Helvetica, sans-serif;
+$body-font-weight: 400;
+
+$fixed-font-family: monospace;
+$fixed-font-weight: 400;
+
+$handwritten: 'LushHandwritten', 'HelveticaNeue', Helvetica, sans-serif;
+
+$heading-text-colour: $lush-black-80;
+$body-text-colour: $lush-black-80;
+$subtle-text-colour: $lush-silver;
+
+// ======================= //
+// == C O L O R   M A P == //
+// ======================= //
+$colours: (
+    white: $white,
+    black: $black,
+    lush-red: $lush-red,
+    lush-green: $lush-green,
+    lush-amber: $lush-amber,
+    lush-sliver: $lush-silver,
+    lush-black-80: $lush-black-80,
+    lush-black-44: $lush-black-44,
+    lush-black-20: $lush-black-20,
+    lush-black-8: $lush-black-8
+);
+
+// =================== //
+// == B U T T O N S == //
+// =================== //
+
+// Button variables
+// ================
+$btn-border: none;
+$btn-border-radius: 0;
+
+$btn-font-size: 1.1;
+$btn-line-height: (16/11);
+$btn-font-weight: normal !default;
+
+$btn-padding-x: 1.6 !default;
+$btn-padding-y: 1.6 !default;
+
+$btn-margin-x: 0;
+$btn-margin-y: 0;
+
+$btn-default-colour: #000;
+
+// ============= //
+// == G R I D == //
+// ============= //
+$page-width: 1080; // 1060px + 10px left + 10px right
+$max-column-count: 12;
+$vspace: 10px;
+$hspace: 10px;
+$row-top: 40px;
+$row-bottom: 0;
+
+$lg: 1000;
+$md: 860;
+$tablet: 767;
+$sm: 620;
+$phone: 480;
+
+$helper-breakpoints: (sm: $sm, tablet: $tablet, md: $md, lg: $lg);
