@@ -41,7 +41,7 @@
       "/dist/"
     ],
     "verbose": true,
-    "testURL": "http://localhost:6001/"
+    "testURL": "http://localhost:6002/"
   },
   "keywords": [
     "React",
