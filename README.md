@@ -20,7 +20,7 @@ Implement as follows
 <SimpleMap />
 ```
 
-for full documentation see [README_SIMPLE.md](https://github.com/SaloCreative/react-interactive-map/README_SIMPLE.md)
+for full documentation see [README_SIMPLE.md](https://github.com/SaloCreative/react-interactive-map/blob/master/README_SIMPLE.md)
 
 ### Mercator projection with lat/long support
 
@@ -36,4 +36,4 @@ Implement as follows
 <MercatorMap />
 ```
 
-for full documentation see [README_MERCATOR.md](https://github.com/SaloCreative/react-interactive-map/README_MERCATOR.md)
+for full documentation see [README_MERCATOR.md](https://github.com/SaloCreative/react-interactive-map/blob/master/README_MERCATOR.md)
