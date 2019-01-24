@@ -7,16 +7,16 @@ import { withTests } from '@storybook/addon-jest';
 import withReadme from 'storybook-readme/with-readme';
 import { H2, Column, P, Row, colours } from '@salocreative/ui';
 
-import results from '../.storybook/jest-test-results.json';
-import Map from './index';
+import results from '../../.storybook/jest-test-results.json';
+import SimpleMap from './index';
 
 // README //
-import README from '../README.md';
+import README from '../../README_SIMPLE.md';
 
-const stories = storiesOf('Map', module);
+const stories = storiesOf('Simple Map', module);
 stories.addDecorator(withReadme(README));
 stories.addDecorator(withKnobs);
-stories.addDecorator(withTests({ results })('map'));
+stories.addDecorator(withTests({ results })('simplemap'));
 
 // STYLES
 const Wrapper = styled.div`
@@ -46,7 +46,7 @@ stories.add(
       <React.Fragment>
         <Row>
           <Column>
-            <Map />
+            <SimpleMap />
           </Column>
         </Row>
       </React.Fragment>

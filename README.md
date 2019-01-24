@@ -1,9 +1,5 @@
 # interactive-map
 
-This library will render an `<svg>` based world map that can have active/disabled countries as well as handling user clicks on a given country
-
--------
-
 ## Usage
 
 Install
@@ -12,36 +8,32 @@ Install
 yarn add @salocreative/interactive-map
 ```
 
-Include
+### Simple country level map (SVG)
 
 ```javascript
-import Map from '@salocreative/interactive-map';
+import { SimpleMap } from '@salocreative/interactive-map';
 ```
 
 Implement as follows
 
 ```javascript
-<Map />
+<SimpleMap />
 ```
 
-## API
+for full documentation see [README_SIMPLE.md](https://github.com/SaloCreative/react-interactive-map/README_SIMPLE.md)
 
-**`onClickRegion: Func` -** handle click events on a given region. This will return an object of : -
+### Mercator projection with lat/long support
 
-```javacript
-  {
-    id: String // The id of the clicked region,
-    active: Boolean // If the region is currently active,
-    disabled: Boolean // If the region is currently disabled
-  }
+**NOT YET IMPLEMENTED**
+
+```javascript
+import { MercatorMap } from '@salocreative/interactive-map';
 ```
 
-**`active: [String]` -** The active prop allows you to tell the map what regions are active. This expects an array of string corresponding to the ID's assigned for wach given country. If a country is active then it will be highlighted.
+Implement as follows
 
-**`disabled: 'all' | 'none' | [String]` -** The disabled prop allows map regions to be disabled. This does not prevent click events but will show a visual style to a user highlighting a region is disabled. This prop is similar to the active one above but will also accept two strings, `all` to disable all regions and `none` (default) to not disable any region. Please note regions can be both active and disabled
+```javascript
+<MercatorMap />
+```
 
-**`baseColor: String` -** What colour the in-active map regions should be
-
-**`highlightColour: String` -** What colour the active map regions shpould be
-
-**`maxWidth: String` -** the maximum width the map can be
+for full documentation see [README_MERCATOR.md](https://github.com/SaloCreative/react-interactive-map/README_MERCATOR.md)

@@ -3,7 +3,7 @@ import 'jest-styled-components';
 import { render } from 'react-testing-library';
 
 // COMPONENT
-import Map from './index';
+import SimpleMap from './index';
 
 /**
  * STANDARD TESTS
@@ -11,7 +11,7 @@ import Map from './index';
 test('Should render default map and styles', async () => {
   // Render
   const { container } = render(
-    <Map
+    <SimpleMap
       data-testid='my-field'
     />
   );

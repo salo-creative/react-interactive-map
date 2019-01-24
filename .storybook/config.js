@@ -56,7 +56,7 @@ addDecorator(story => (
 
 
 function loadStories() {
-  require('../src/_story');
+  require('../src/simple/_story');
 }
 
 setAddon(infoAddon);
