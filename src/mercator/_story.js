@@ -2,7 +2,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
-import { withKnobs } from '@storybook/addon-knobs';
+import { withKnobs, object } from '@storybook/addon-knobs';
 import { withTests } from '@storybook/addon-jest';
 import withReadme from 'storybook-readme/with-readme';
 import { H2, Column, P, Row, colours } from '@salocreative/ui';
@@ -38,15 +38,21 @@ const StyledP = styled(P)`
   background: #fff;
 `;
 
-
 stories.add(
   'Basic',
   () => {
+    const locations = object('Locations', [
+      { label: 'LDN', lat: 51.5074, lon: -0.1278 },
+      { label: 'NY', lat: 40.7128, lon: -74.0060 },
+      { label: 'AUK', lat: -36.848, lon: 174.7633 },
+      { label: 'AMS', lat: 52.3680, lon: 4.9036 },
+      { label: 'PAN', lat: 8.5380, lon: -80.7821 }
+    ]);
     return (
       <React.Fragment>
         <Row>
           <Column>
-            <MercatorMap />
+            <MercatorMap locations={ locations } />
           </Column>
         </Row>
       </React.Fragment>
