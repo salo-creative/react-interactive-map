@@ -54,3 +54,7 @@ const locations = object('Locations', [
   }) }
 </MercatorMap>
 ```
+
+## API
+
+**`hideAntarctica: Bool` -** Determine whether to show or hide antarctica. Only removes the path, the SVG will remain the same height otherwise the projection is incorrect. This whitespace can be hidden by the parent of the map.
