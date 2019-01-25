@@ -20,6 +20,7 @@ webpack.js
 yarn.lock
 yarn-error.log
 .out
+out3747
 dist/**/*.test.js
 dist/**/*.spec.js
 dist/**/*.story.js
