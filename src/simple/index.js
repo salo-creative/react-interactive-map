@@ -48,7 +48,9 @@ class SimpleMap extends React.Component {
     // Mark regions as active
     forEach(active, (item) => {
       const el = document.getElementById(item);
-      el.classList.add('region-active');
+      if (el) {
+        el.classList.add('region-active');
+      }
     });
 
     // Mark regions as disabled
@@ -62,7 +64,9 @@ class SimpleMap extends React.Component {
       } else {
         forEach(disabled, (item) => {
           const el = document.getElementById(item);
-          el.classList.add('region-disabled');
+          if (el) {
+            el.classList.add('region-disabled');
+          }
         });
       }
     }

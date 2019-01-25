@@ -2,7 +2,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
-import { withKnobs } from '@storybook/addon-knobs';
+import { withKnobs, array, text } from '@storybook/addon-knobs';
 import { withTests } from '@storybook/addon-jest';
 import withReadme from 'storybook-readme/with-readme';
 import { H2, Column, P, Row, colours } from '@salocreative/ui';
@@ -42,11 +42,20 @@ const StyledP = styled(P)`
 stories.add(
   'Basic',
   () => {
+    const activeColor = text('Active color', '#00aced');
+    const baseColor = text('Base color', '#cccccc');
+    const active = ['CA', 'GB', 'AU'];
+    const disabled = ['US'];
     return (
       <React.Fragment>
         <Row>
           <Column>
-            <SimpleMap />
+            <SimpleMap
+              active={ active }
+              disabled={ disabled }
+              activeColor={ activeColor }
+              baseColor={ baseColor }
+            />
           </Column>
         </Row>
       </React.Fragment>

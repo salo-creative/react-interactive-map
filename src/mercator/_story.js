@@ -2,7 +2,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
-import { withKnobs, object, boolean } from '@storybook/addon-knobs';
+import { withKnobs, object, boolean, text } from '@storybook/addon-knobs';
 import { withTests } from '@storybook/addon-jest';
 import withReadme from 'storybook-readme/with-readme';
 import { H2, Column, P, Row, colours } from '@salocreative/ui';
@@ -13,7 +13,7 @@ import MercatorMap from './index';
 // README //
 import README from '../../README_MERCATOR.md';
 
-const stories = storiesOf('MercatorMap', module);
+const stories = storiesOf('Mercator Map', module);
 stories.addDecorator(withReadme(README));
 stories.addDecorator(withKnobs);
 stories.addDecorator(withTests({ results })('mercatormap'));
@@ -42,6 +42,7 @@ stories.add(
   'Basic',
   () => {
     const hideAntarctica = boolean('Hide Antarctica', true);
+    const baseColor = text('Base color', '#cccccc');
     const locations = object('Locations', [
       { label: 'LDN', lat: 51.5074, lon: -0.1278 },
       { label: 'NY', lat: 40.7128, lon: -74.0060 },
@@ -55,7 +56,10 @@ stories.add(
       <React.Fragment>
         <Row>
           <Column>
-            <MercatorMap hideAntarctica={ hideAntarctica }>
+            <MercatorMap
+              hideAntarctica={ hideAntarctica }
+              baseColor={ baseColor }
+            >
               { ({ evalCoordinates }) => locations.map(location => {
                 const { lat, lon, label } = location;
                 const coords = evalCoordinates({ lat, lon });

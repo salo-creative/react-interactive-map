@@ -41,11 +41,14 @@ class MercatorMap extends React.Component {
   }
 
   render() {
-    const { children, hideAntarctica } = this.props;
+    const { children, hideAntarctica, baseColor } = this.props;
     return (
       <Wrapper>
         <MapWrapper>
-          <Map hideAntarctica={ hideAntarctica } />
+          <Map
+            hideAntarctica={ hideAntarctica }
+            baseColor={ baseColor }
+          />
           { children({ evalCoordinates: this.evalCoordinates }) }
         </MapWrapper>
       </Wrapper>
@@ -53,11 +56,15 @@ class MercatorMap extends React.Component {
   }
 }
 
-MercatorMap.defaultProps = { hideAntarctica: true };
+MercatorMap.defaultProps = {
+  hideAntarctica: true,
+  baseColor: '#cccccc'
+};
 
 MercatorMap.propTypes = {
   children: PropTypes.any.isRequired,
-  hideAntarctica: PropTypes.bool
+  hideAntarctica: PropTypes.bool,
+  baseColor: PropTypes.string
 };
 
 export default MercatorMap;

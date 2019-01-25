@@ -58,3 +58,5 @@ const locations = object('Locations', [
 ## API
 
 **`hideAntarctica: Bool` -** Determine whether to show or hide antarctica. Only removes the path, the SVG will remain the same height otherwise the projection is incorrect. This whitespace can be hidden by the parent of the map.
+
+**`baseColor: String` -** What colour the map regions should be
