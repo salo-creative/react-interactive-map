@@ -53,7 +53,26 @@ stories.add(
       <React.Fragment>
         <Row>
           <Column>
-            <MercatorMap locations={ locations } />
+            <MercatorMap>
+              { ({ evalCoordinates }) => locations.map(location => {
+                const { lat, lon, label } = location;
+                const coords = evalCoordinates({ lat, lon });
+                return (
+                  <span
+                    key={ label }
+                    style={ {
+                      height: '10px',
+                      width: '10px',
+                      borderRadius: '50%',
+                      background: 'red',
+                      position: 'absolute',
+                      left: `calc(${ coords.x }% - 5px)`,
+                      top: `calc(${ coords.y }% - 5px)`
+                    } }
+                  />
+                );
+              }) }
+            </MercatorMap>
           </Column>
         </Row>
       </React.Fragment>

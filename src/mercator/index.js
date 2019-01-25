@@ -31,41 +31,18 @@ class MercatorMap extends React.Component {
   }
 
   render() {
-    const { locations } = this.props;
+    const { children } = this.props;
     return (
       <Wrapper>
-        { locations.map(location => {
-          const { lat, lon, label } = location;
-          const coords = this.evalCoordinates({ lat, lon });
-          return (
-            <span
-              key={ label }
-              style={ {
-                height: '20px',
-                width: '20px',
-                borderRadius: '50%',
-                background: 'red',
-                position: 'absolute',
-                left: `calc(${ coords.x }% - 10px)`,
-                top: `calc(${ coords.y }% - 10px)`
-              } }
-            />
-          );
-        }) }
         <Map />
+        { children({ evalCoordinates: this.evalCoordinates }) }
       </Wrapper>
     );
   }
 }
 
-MercatorMap.defaultProps = { locations: [] };
-
 MercatorMap.propTypes = {
-  locations: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    lat: PropTypes.number.isRequired,
-    lon: PropTypes.number.isRequired
-  }))
+  children: PropTypes.any.isRequired
 };
 
 export default MercatorMap;
