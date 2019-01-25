@@ -1,4 +1,5 @@
 [
+{ "user": "SaloCreative", "version": "v1.1.1", "commit": "Updating readme" },
 { "user": "SaloCreative", "version": "v1.1.0", "commit": "Adding mercator map" },
 { "user": "SaloCreative", "version": "v1.0.1", "commit": "Fixing readmes" },
 { "user": "SaloCreative", "version": "v1.0.0", "commit": "Refactoring ready for adding mercator map" },
