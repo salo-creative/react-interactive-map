@@ -46,6 +46,7 @@ stories.add(
       { label: 'NY', lat: 40.7128, lon: -74.0060 },
       { label: 'AUK', lat: -36.848, lon: 174.7633 },
       { label: 'AMS', lat: 52.3680, lon: 4.9036 },
+      { label: 'CAT', lat: -33.9249, lon: 18.4241 },
       { label: 'PAN', lat: 8.5380, lon: -80.7821 }
     ]);
     return (
