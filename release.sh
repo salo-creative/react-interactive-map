@@ -37,12 +37,7 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
 
 fi
 
-# read -r -p "Run storybook release? [y/N] " response
-# if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
-#   REMOTE=$(git config --get remote.deployer.url)
-#   echo $REMOTE
-#   if [ -z "$REMOTE" ]; then
-#     git remote add deployer https://github.com/LUSHDigital/ui.git
-#   fi
-#   npm run deploy-storybook -- --remote=deployer
-# fi
+read -r -p "Run storybook release? [y/N] " response
+if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
+  npm run deploy-storybook
+fi
