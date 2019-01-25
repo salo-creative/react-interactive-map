@@ -7,9 +7,19 @@ import Map from './_map';
 
 const Wrapper = styled.div`
   position: relative;
+  padding: 0 0 75%;
   width: 100%;
   max-width: ${ ({ maxWidth }) => maxWidth };
   margin: 0 auto;
+  overflow: hidden;
+`;
+
+const MapWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 `;
 
 class MercatorMap extends React.Component {
@@ -26,23 +36,28 @@ class MercatorMap extends React.Component {
     const latRad = (lat * Math.PI) / 180;
     // get y value
     const mercN = Math.log(Math.tan((Math.PI / 4) + (latRad / 2)));
-    y = ((((mapHeight / 2) - (mapWidth * mercN / (2 * Math.PI))) / mapHeight) * 100) - 1.1;
+    y = ((((mapHeight / 2) - (mapWidth * mercN / (2 * Math.PI))) / mapHeight) * 100) - 0.7;
     return { x, y };
   }
 
   render() {
-    const { children } = this.props;
+    const { children, hideAntarctica } = this.props;
     return (
       <Wrapper>
-        <Map />
-        { children({ evalCoordinates: this.evalCoordinates }) }
+        <MapWrapper>
+          <Map hideAntarctica={ hideAntarctica } />
+          { children({ evalCoordinates: this.evalCoordinates }) }
+        </MapWrapper>
       </Wrapper>
     );
   }
 }
 
+MercatorMap.defaultProps = { hideAntarctica: true };
+
 MercatorMap.propTypes = {
-  children: PropTypes.any.isRequired
+  children: PropTypes.any.isRequired,
+  hideAntarctica: PropTypes.bool
 };
 
 export default MercatorMap;

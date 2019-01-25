@@ -1,6 +1,6 @@
 # Mercator Map
 
-This map is an SVG mercator projection of the globe. This allows us to plot latitude and longitudes directly on it. In order to keep the implementation straightforward and easy to customise this component simply exposes a render prop with the calculation required to perform the conversion for you. You can then position your child elements as you require based on the X & Y coordinates. If you need to simply handle countries and interaction at that level please see the SimpleMap implementation.
+This map is an SVG mercator projection (the accuracy is not 100% but its pretty darn close!) of the globe. This allows us to plot latitude and longitudes directly on it. In order to keep the implementation straightforward and easy to customise this component simply exposes a render prop with the calculation required to perform the conversion for you. You can then position your child elements as you require based on the X & Y coordinates. If you need to simply handle countries and interaction at that level please see the SimpleMap implementation.
 
 -------
 
@@ -27,7 +27,8 @@ const locations = object('Locations', [
   { label: 'AUK', lat: -36.848, lon: 174.7633 },
   { label: 'AMS', lat: 52.3680, lon: 4.9036 },
   { label: 'CAT', lat: -33.9249, lon: 18.4241 },
-  { label: 'PAN', lat: 8.5380, lon: -80.7821 }
+  { label: 'PAN', lat: 8.5380, lon: -80.7821 },
+  { label: 'RIO', lat: -22.9068, lon: -43.1729 }
 ]);
 ```
 
@@ -40,13 +41,13 @@ const locations = object('Locations', [
       <span
         key={ label }
         style={ {
-          height: '10px',
-          width: '10px',
+          height: '6px',
+          width: '6px',
           borderRadius: '50%',
           background: 'red',
           position: 'absolute',
-          left: `calc(${ coords.x }% - 5px)`,
-          top: `calc(${ coords.y }% - 5px)`
+          left: `calc(${ coords.x }% - 3px)`,
+          top: `calc(${ coords.y }% - 3px)`
         } }
       />
     );
