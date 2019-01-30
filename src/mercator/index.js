@@ -20,6 +20,7 @@ const MapWrapper = styled.div`
   left: ${ ({ left }) => left };
   width: ${ ({ zoom }) => zoom };
   height: ${ ({ zoom }) => zoom };
+  transition: all 0.3s ease-in-out;
 `;
 
 class MercatorMap extends React.Component {
@@ -48,12 +49,49 @@ class MercatorMap extends React.Component {
     return '100%';
   }
 
+  calculatePosition = (size) => {
+    const { zoomOrigin, zoom } = this.props;
+    const [x, y] = zoomOrigin.split(',');
+    const factor = 100 - parseInt(size, 10);
+
+    // HANDLE NO ZOOM
+    if (factor === 0) {
+      return {
+        left: '0',
+        top: '0'
+      };
+    }
+
+    // KEEP CENTERED IF ZOOMED OUT
+    if (factor > 0) {
+      const position = `${ factor / 2 }%`;
+      return {
+        left: position,
+        top: position
+      };
+    }
+
+    // HANDLE ORIGIN ON ZOOM IN
+    let left = parseInt(x, 10);
+    let top = parseInt(y, 10);
+
+    left = left >= 0 && left <= 100 ? (zoom - 1) * left : 0;
+    top = top >= 0 && top <= 100 ? (zoom - 1) * top : 0;
+
+    return {
+      left: `-${ left }%`,
+      top: `-${ top }%`
+    };
+  }
+
   render() {
-    const { children, hideAntarctica, baseColor, top, left } = this.props;
+    const { children, hideAntarctica, baseColor } = this.props;
+    const size = this.calculateZoomSize();
+    const { left, top } = this.calculatePosition(size);
     return (
       <Wrapper>
         <MapWrapper
-          zoom={ this.calculateZoomSize() }
+          zoom={ size }
           left={ left }
           top={ top }
         >
@@ -72,8 +110,7 @@ MercatorMap.defaultProps = {
   hideAntarctica: true,
   baseColor: '#cccccc',
   zoom: 1,
-  top: '0',
-  left: '0'
+  zoomOrigin: '50,50'
 };
 
 MercatorMap.propTypes = {
@@ -81,8 +118,7 @@ MercatorMap.propTypes = {
   hideAntarctica: PropTypes.bool,
   baseColor: PropTypes.string,
   zoom: PropTypes.number,
-  top: PropTypes.string,
-  left: PropTypes.string
+  zoomOrigin: PropTypes.string
 };
 
 export default MercatorMap;

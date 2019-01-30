@@ -52,9 +52,8 @@ stories.add(
       { label: 'PAN', lat: 8.5380, lon: -80.7821 },
       { label: 'RIO', lat: -22.9068, lon: -43.1729 }
     ]);
-    const zoom = number('Zoom', 1);
-    const top = text('Top', '0%');
-    const left = text('left', '0%');
+    const zoom = number('Zoom', 2);
+    const zoomOrigin = text('Zoom origin', '50,50');
     return (
       <React.Fragment>
         <Row>
@@ -63,8 +62,7 @@ stories.add(
               hideAntarctica={ hideAntarctica }
               baseColor={ baseColor }
               zoom={ zoom }
-              top={ top }
-              left={ left }
+              zoomOrigin={ zoomOrigin }
             >
               { ({ evalCoordinates }) => locations.map(location => {
                 const { lat, lon, label } = location;
