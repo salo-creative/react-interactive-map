@@ -2,7 +2,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
-import { withKnobs, object, boolean, text } from '@storybook/addon-knobs';
+import { withKnobs, object, boolean, text, number } from '@storybook/addon-knobs';
 import { withTests } from '@storybook/addon-jest';
 import withReadme from 'storybook-readme/with-readme';
 import { H2, Column, P, Row, colours } from '@salocreative/ui';
@@ -52,6 +52,9 @@ stories.add(
       { label: 'PAN', lat: 8.5380, lon: -80.7821 },
       { label: 'RIO', lat: -22.9068, lon: -43.1729 }
     ]);
+    const zoom = number('Zoom', 1);
+    const top = text('Top', '0%');
+    const left = text('left', '0%');
     return (
       <React.Fragment>
         <Row>
@@ -59,6 +62,9 @@ stories.add(
             <MercatorMap
               hideAntarctica={ hideAntarctica }
               baseColor={ baseColor }
+              zoom={ zoom }
+              top={ top }
+              left={ left }
             >
               { ({ evalCoordinates }) => locations.map(location => {
                 const { lat, lon, label } = location;

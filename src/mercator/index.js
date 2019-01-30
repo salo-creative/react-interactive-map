@@ -16,10 +16,10 @@ const Wrapper = styled.div`
 
 const MapWrapper = styled.div`
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: ${ ({ top }) => top };
+  left: ${ ({ left }) => left };
+  width: ${ ({ zoom }) => zoom };
+  height: ${ ({ zoom }) => zoom };
 `;
 
 class MercatorMap extends React.Component {
@@ -40,11 +40,23 @@ class MercatorMap extends React.Component {
     return { x, y };
   }
 
+  calculateZoomSize = () => {
+    const { zoom } = this.props;
+    if (!isNaN(parseFloat(zoom))) {
+      return `${ parseFloat(zoom) * 100 }%`;
+    }
+    return '100%';
+  }
+
   render() {
-    const { children, hideAntarctica, baseColor } = this.props;
+    const { children, hideAntarctica, baseColor, top, left } = this.props;
     return (
       <Wrapper>
-        <MapWrapper>
+        <MapWrapper
+          zoom={ this.calculateZoomSize() }
+          left={ left }
+          top={ top }
+        >
           <Map
             hideAntarctica={ hideAntarctica }
             baseColor={ baseColor }
@@ -58,13 +70,19 @@ class MercatorMap extends React.Component {
 
 MercatorMap.defaultProps = {
   hideAntarctica: true,
-  baseColor: '#cccccc'
+  baseColor: '#cccccc',
+  zoom: 1,
+  top: '0',
+  left: '0'
 };
 
 MercatorMap.propTypes = {
   children: PropTypes.any.isRequired,
   hideAntarctica: PropTypes.bool,
-  baseColor: PropTypes.string
+  baseColor: PropTypes.string,
+  zoom: PropTypes.number,
+  top: PropTypes.string,
+  left: PropTypes.string
 };
 
 export default MercatorMap;
