@@ -2,6 +2,10 @@
 
 This map is an SVG mercator projection (the accuracy is not 100% but its pretty darn close!) of the globe. This allows us to plot latitude and longitudes directly on it. In order to keep the implementation straightforward and easy to customise this component simply exposes a render prop with the calculation required to perform the conversion for you. You can then position your child elements as you require based on the X & Y coordinates. If you need to simply handle countries and interaction at that level please see the SimpleMap implementation.
 
+- Latitude and longitude conversion to % positioning for responsive maps markers
+- SVG for crisp scaling
+- Pan and zoom functionality as requiresd
+
 -------
 
 ## Usage
@@ -55,8 +59,16 @@ const locations = object('Locations', [
 </MercatorMap>
 ```
 
+### Zoom and panning example
+
+COMING SOON
+
 ## API
 
 **`hideAntarctica: Bool` -** Determine whether to show or hide antarctica. Only removes the path, the SVG will remain the same height otherwise the projection is incorrect. This whitespace can be hidden by the parent of the map.
 
 **`baseColor: String` -** What colour the map regions should be
+
+**`zoom: Float` -** factor the map should be zoomed in by. default is 1
+
+**`zoomOrigin: String` -** e.g `zoomOrigin='50,50'` where the zoom origin is. The default is `0,0` which is top left.
