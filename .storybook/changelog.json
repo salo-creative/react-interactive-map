@@ -1,4 +1,5 @@
 [
+{ "user": "SaloCreative", "version": "v1.3.0", "commit": "Adding zoom functionality" },
 { "user": "SaloCreative", "version": "v1.2.1", "commit": "Removing uneccessary assets from the bundle" },
 { "user": "SaloCreative", "version": "v1.2.0", "commit": "Adding ability to set base colour of mercator map and some basic tests" },
 { "user": "SaloCreative", "version": "v1.1.1", "commit": "Updating readme" },
