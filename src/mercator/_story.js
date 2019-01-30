@@ -52,7 +52,7 @@ stories.add(
       { label: 'PAN', lat: 8.5380, lon: -80.7821 },
       { label: 'RIO', lat: -22.9068, lon: -43.1729 }
     ]);
-    const zoom = number('Zoom', 2);
+    const zoom = number('Zoom', 1);
     const zoomOrigin = text('Zoom origin', '50,50');
     return (
       <React.Fragment>
