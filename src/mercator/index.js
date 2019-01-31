@@ -7,9 +7,19 @@ import Map from './_map';
 
 const Wrapper = styled.div`
   position: relative;
-  padding: 0 0 75%;
+  padding: ${ ({ hideAntarctica }) => (hideAntarctica ? '0 0 56%' : '0 0 75%') };
   width: 100%;
   max-width: ${ ({ maxWidth }) => maxWidth };
+  margin: 0 auto;
+  overflow: hidden;
+`;
+
+const InnerWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0 0 75%;
+  width: 100%;
   margin: 0 auto;
   overflow: hidden;
 `;
@@ -50,9 +60,9 @@ class MercatorMap extends React.Component {
   }
 
   calculatePosition = (size) => {
-    const { zoomOrigin, zoom } = this.props;
-    const [x, y] = zoomOrigin.split(',');
+    const { zoom, hideAntarctica, center } = this.props;
     const factor = 100 - parseInt(size, 10);
+    const { x, y } = this.evalCoordinates(center);
 
     // HANDLE NO ZOOM
     if (factor === 0) {
@@ -75,8 +85,23 @@ class MercatorMap extends React.Component {
     let left = parseInt(x, 10);
     let top = parseInt(y, 10);
 
-    left = left >= 0 && left <= 100 ? (zoom - 1) * left : 0;
-    top = top >= 0 && top <= 100 ? (zoom - 1) * top : 0;
+    // Eval left position
+    if (left >= 0 && left <= 100) {
+      left *= (zoom - 1);
+    } else if (left > 100) {
+      left = (zoom - 1) * 100;
+    } else {
+      left = 0;
+    }
+
+    // Eval top pos
+    if (top >= 0 && top <= 100) {
+      top = (top * (zoom - 1)) - (hideAntarctica && top > 50 ? (25 * (zoom - 1)) : 0);
+    } else if (top > 100) {
+      top = (zoom - 1) * (hideAntarctica ? 75 : 100);
+    } else {
+      top = 0;
+    }
 
     return {
       left: `-${ left }%`,
@@ -90,17 +115,19 @@ class MercatorMap extends React.Component {
     const { left, top } = this.calculatePosition(size);
     return (
       <Wrapper>
-        <MapWrapper
-          zoom={ size }
-          left={ left }
-          top={ top }
-        >
-          <Map
-            hideAntarctica={ hideAntarctica }
-            baseColor={ baseColor }
-          />
-          { children({ evalCoordinates: this.evalCoordinates }) }
-        </MapWrapper>
+        <InnerWrapper>
+          <MapWrapper
+            zoom={ size }
+            left={ left }
+            top={ top }
+          >
+            <Map
+              hideAntarctica={ hideAntarctica }
+              baseColor={ baseColor }
+            />
+            { children({ evalCoordinates: this.evalCoordinates }) }
+          </MapWrapper>
+        </InnerWrapper>
       </Wrapper>
     );
   }
@@ -110,7 +137,10 @@ MercatorMap.defaultProps = {
   hideAntarctica: true,
   baseColor: '#cccccc',
   zoom: 1,
-  zoomOrigin: '50,50'
+  center: {
+    lat: 0,
+    lon: 0
+  }
 };
 
 MercatorMap.propTypes = {
@@ -118,7 +148,10 @@ MercatorMap.propTypes = {
   hideAntarctica: PropTypes.bool,
   baseColor: PropTypes.string,
   zoom: PropTypes.number,
-  zoomOrigin: PropTypes.string
+  center: PropTypes.shape({
+    lat: PropTypes.string.isRequired,
+    lon: PropTypes.string.isRequired
+  })
 };
 
 export default MercatorMap;
