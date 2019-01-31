@@ -42,12 +42,12 @@ class MercatorMap extends React.Component {
     const mapWidth = 1717;
     const mapHeight = 1291;
     // get x value
-    x = ((((lon + 180) * (mapWidth / 360)) / mapWidth) * 100) - 2.8;
+    x = ((((lon + 180) * (mapWidth / 360)) / mapWidth) * 100) - 2.75;
     // convert from degrees to radians
     const latRad = (lat * Math.PI) / 180;
     // get y value
     const mercN = Math.log(Math.tan((Math.PI / 4) + (latRad / 2)));
-    y = ((((mapHeight / 2) - (mapWidth * mercN / (2 * Math.PI))) / mapHeight) * 100) - 0.7;
+    y = ((((mapHeight / 2) - (mapWidth * mercN / (2 * Math.PI))) / mapHeight) * 100) - 0.85;
     return { x, y };
   }
 
