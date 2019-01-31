@@ -7,9 +7,19 @@ import Map from './_map';
 
 const Wrapper = styled.div`
   position: relative;
-  padding: 0 0 75%;
+  padding: 0 0 56%;
   width: 100%;
   max-width: ${ ({ maxWidth }) => maxWidth };
+  margin: 0 auto;
+  overflow: hidden;
+`;
+
+const InnerWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0 0 75%;
+  width: 100%;
   margin: 0 auto;
   overflow: hidden;
 `;
@@ -50,7 +60,7 @@ class MercatorMap extends React.Component {
   }
 
   calculatePosition = (size) => {
-    const { zoomOrigin, zoom } = this.props;
+    const { zoomOrigin, zoom, hideAntarctica } = this.props;
     const [x, y] = zoomOrigin.split(',');
     const factor = 100 - parseInt(size, 10);
 
@@ -75,8 +85,23 @@ class MercatorMap extends React.Component {
     let left = parseInt(x, 10);
     let top = parseInt(y, 10);
 
-    left = left >= 0 && left <= 100 ? (zoom - 1) * left : 0;
-    top = top >= 0 && top <= 100 ? (zoom - 1) * top : 0;
+    // EVALUATE LEFT POS
+    if (left >= 0 && left <= 100) {
+      left *= (zoom - 1);
+    } else if (left > 100) {
+      left = (zoom - 1) * 100;
+    } else {
+      left = 0;
+    }
+
+    // EVALUATE TOP POS
+    if (top >= 0 && top <= 100) {
+      top = (top * (zoom - 1)) - (hideAntarctica ? (25 * (zoom - 1)) : 0);
+    } else if (top > 100) {
+      top = (zoom - 1) * (hideAntarctica ? 75 : 100);
+    } else {
+      top = 0;
+    }
 
     return {
       left: `-${ left }%`,
@@ -90,17 +115,19 @@ class MercatorMap extends React.Component {
     const { left, top } = this.calculatePosition(size);
     return (
       <Wrapper>
-        <MapWrapper
-          zoom={ size }
-          left={ left }
-          top={ top }
-        >
-          <Map
-            hideAntarctica={ hideAntarctica }
-            baseColor={ baseColor }
-          />
-          { children({ evalCoordinates: this.evalCoordinates }) }
-        </MapWrapper>
+        <InnerWrapper>
+          <MapWrapper
+            zoom={ size }
+            left={ left }
+            top={ top }
+          >
+            <Map
+              hideAntarctica={ hideAntarctica }
+              baseColor={ baseColor }
+            />
+            { children({ evalCoordinates: this.evalCoordinates }) }
+          </MapWrapper>
+        </InnerWrapper>
       </Wrapper>
     );
   }
