@@ -149,8 +149,8 @@ MercatorMap.propTypes = {
   baseColor: PropTypes.string,
   zoom: PropTypes.number,
   center: PropTypes.shape({
-    lat: PropTypes.string.isRequired,
-    lon: PropTypes.string.isRequired
+    lat: PropTypes.number.isRequired,
+    lon: PropTypes.number.isRequired
   })
 };
 
