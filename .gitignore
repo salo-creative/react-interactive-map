@@ -74,3 +74,6 @@ Thumbs.db
 jest-test-results.json
 !src/atoms/icons
 .out
+
+# DEV data #
+locations.json

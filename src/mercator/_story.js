@@ -13,7 +13,7 @@ import MercatorMap from './index';
 
 // README //
 import README from '../../README_MERCATOR.md';
-import locations from './locations.json';
+import locations from '../../locations.json';
 
 const calculateGroupPosition = (group) => {
   const lat = group.reduce((acc, item) => acc + item.lat, 0) / group.length;
