@@ -85,7 +85,7 @@ class MercatorMap extends React.Component {
     let left = parseInt(x, 10);
     let top = parseInt(y, 10);
 
-    // EVALUATE LEFT POS
+    // Eval left position
     if (left >= 0 && left <= 100) {
       left *= (zoom - 1);
     } else if (left > 100) {
@@ -94,7 +94,7 @@ class MercatorMap extends React.Component {
       left = 0;
     }
 
-    // EVALUATE TOP POS
+    // Eval top pos
     if (top >= 0 && top <= 100) {
       top = (top * (zoom - 1)) - (hideAntarctica ? (25 * (zoom - 1)) : 0);
     } else if (top > 100) {
