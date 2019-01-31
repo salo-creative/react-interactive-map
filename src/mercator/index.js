@@ -7,7 +7,7 @@ import Map from './_map';
 
 const Wrapper = styled.div`
   position: relative;
-  padding: 0 0 56%;
+  padding: ${ ({ hideAntarctica }) => (hideAntarctica ? '0 0 56%' : '0 0 75%') };
   width: 100%;
   max-width: ${ ({ maxWidth }) => maxWidth };
   margin: 0 auto;
@@ -60,9 +60,9 @@ class MercatorMap extends React.Component {
   }
 
   calculatePosition = (size) => {
-    const { zoomOrigin, zoom, hideAntarctica } = this.props;
-    const [x, y] = zoomOrigin.split(',');
+    const { zoom, hideAntarctica, center } = this.props;
     const factor = 100 - parseInt(size, 10);
+    const { x, y } = this.evalCoordinates(center);
 
     // HANDLE NO ZOOM
     if (factor === 0) {
@@ -96,7 +96,7 @@ class MercatorMap extends React.Component {
 
     // Eval top pos
     if (top >= 0 && top <= 100) {
-      top = (top * (zoom - 1)) - (hideAntarctica ? (25 * (zoom - 1)) : 0);
+      top = (top * (zoom - 1)) - (hideAntarctica && top > 50 ? (25 * (zoom - 1)) : 0);
     } else if (top > 100) {
       top = (zoom - 1) * (hideAntarctica ? 75 : 100);
     } else {
@@ -137,7 +137,10 @@ MercatorMap.defaultProps = {
   hideAntarctica: true,
   baseColor: '#cccccc',
   zoom: 1,
-  zoomOrigin: '50,50'
+  center: {
+    lat: 0,
+    lon: 0
+  }
 };
 
 MercatorMap.propTypes = {
@@ -145,7 +148,10 @@ MercatorMap.propTypes = {
   hideAntarctica: PropTypes.bool,
   baseColor: PropTypes.string,
   zoom: PropTypes.number,
-  zoomOrigin: PropTypes.string
+  center: PropTypes.shape({
+    lat: PropTypes.string.isRequired,
+    lon: PropTypes.string.isRequired
+  })
 };
 
 export default MercatorMap;
