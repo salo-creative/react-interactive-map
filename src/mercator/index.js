@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { indexOf } from 'lodash';
 
 // COMPONENTS
 import Map from './_map';
@@ -109,6 +110,53 @@ class MercatorMap extends React.Component {
     };
   }
 
+  calculateGroupPosition = (group) => {
+    const lat = group.reduce((acc, item) => acc + item.lat, 0) / group.length;
+    const lon = group.reduce((acc, item) => acc + item.lon, 0) / group.length;
+    return { lat, lon };
+  };
+
+  groupPoints = (locations, radius = 5) => {
+    const { zoom } = this.props;
+    const mappedLocations = [];
+    const latResolution = zoom ? ((radius / 2) / zoom) : 2.5;
+    const lonResolution = zoom ? (radius / zoom) : 5;
+
+    return locations.map(location => {
+    // Check if location already grabbed as part of an
+    // earlier grouping and only proceed if not grouped
+      const alreadyMapped = indexOf(mappedLocations, location);
+  
+      if (alreadyMapped === -1) {
+        mappedLocations.push(location);
+        const groupedLocations = [location];
+        const remainingLocations = locations.filter(item => indexOf(mappedLocations, item) === -1);
+        remainingLocations.forEach(item => {
+        // CHECK IF LOCATION COLLIDES WITH ANOTHER
+          const latCollision = location.lat - item.lat < latResolution && location.lat - item.lat > -latResolution;
+          const lonCollision = location.lon - item.lon < lonResolution && location.lon - item.lon > -lonResolution;
+          if (latCollision && lonCollision) {
+            // EXCLUDE FROM A LATER MAP AND STORE
+            mappedLocations.push(item);
+            groupedLocations.push(item);
+          }
+        });
+
+        const { lat, lon } = this.calculateGroupPosition(groupedLocations);
+        const { x, y } = this.evalCoordinates({ lat, lon });
+        return {
+          lat,
+          lon,
+          x,
+          y,
+          name: location.name,
+          points: groupedLocations
+        };
+      }
+      return null;
+    }).filter(i => i);
+  }
+
   render() {
     const { children, hideAntarctica, baseColor } = this.props;
     const size = this.calculateZoomSize();
@@ -125,7 +173,7 @@ class MercatorMap extends React.Component {
               hideAntarctica={ hideAntarctica }
               baseColor={ baseColor }
             />
-            { children({ evalCoordinates: this.evalCoordinates }) }
+            { children({ evalCoordinates: this.evalCoordinates, groupPoints: this.groupPoints }) }
           </MapWrapper>
         </InnerWrapper>
       </Wrapper>
