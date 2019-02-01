@@ -149,7 +149,6 @@ class MercatorMap extends React.Component {
           lon,
           x,
           y,
-          name: location.name,
           points: groupedLocations
         };
       }

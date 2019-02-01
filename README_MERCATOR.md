@@ -4,8 +4,8 @@ This map is an SVG mercator projection (the accuracy is not 100% but its pretty 
 
 - Latitude and longitude conversion to % positioning for responsive maps markers
 - SVG for crisp scaling
-- Pan and zoom functionality as requiresd
-
+- Zoom functionality as required
+- Point grouping
 -------
 
 ## Usage
@@ -22,28 +22,32 @@ import MercatorMap from '@salocreative/interactive-map';
 
 ### Basic implementation
 
-The implementation in the basic storybook is as follows. As the component is only giving you a realtive positioned container and then allowing you the flexibility to render what you need the possibile use cases are huge. I'm hoping to add more examples in the future.
+As the component is only giving you a relative positioned container and then allowing you the flexibility to render what you need the possibile use cases are huge.
+
+In order to calculate the position for you points on the map you can use the render prop `evalCoordinates`. This function takes an object of `{ lat: 0.00000, lon: 0.00000 }` as an argument and returns an object of `{ x: 50%, y: 50% }`. This means in your render you can pass in the lat and lon for your points and be given a % coordinate for positiong within the component (rember to account for your marker size).
+
+The implementation in the [basic storybook](https://salocreative.github.io/react-interactive-map/?selectedKind=Mercator%20Map&selectedStory=Basic) is as follows. 
 
 ```javascript
 const locations = object('Locations', [
-  { label: 'LDN', lat: 51.5074, lon: -0.1278 },
-  { label: 'NY', lat: 40.7128, lon: -74.0060 },
-  { label: 'AUK', lat: -36.848, lon: 174.7633 },
-  { label: 'AMS', lat: 52.3680, lon: 4.9036 },
-  { label: 'CAT', lat: -33.9249, lon: 18.4241 },
-  { label: 'PAN', lat: 8.5380, lon: -80.7821 },
-  { label: 'RIO', lat: -22.9068, lon: -43.1729 }
+  { name: 'LDN', lat: 51.5074, lon: -0.1278 },
+  { name: 'NY', lat: 40.7128, lon: -74.0060 },
+  { name: 'AUK', lat: -36.848, lon: 174.7633 },
+  { name: 'AMS', lat: 52.3680, lon: 4.9036 },
+  { name: 'CAT', lat: -33.9249, lon: 18.4241 },
+  { name: 'PAN', lat: 8.5380, lon: -80.7821 },
+  { name: 'RIO', lat: -22.9068, lon: -43.1729 }
 ]);
 ```
 
 ```javascript
 <MercatorMap>
   { ({ evalCoordinates }) => locations.map(location => {
-    const { lat, lon, label } = location;
+    const { lat, lon, name } = location;
     const coords = evalCoordinates({ lat, lon });
     return (
       <span
-        key={ label }
+        key={ name }
         style={ {
           height: '6px',
           width: '6px',
@@ -59,9 +63,77 @@ const locations = object('Locations', [
 </MercatorMap>
 ```
 
-### Zoom example
+### Grouped points example
 
-COMING SOON
+With larger data sets it may be necessary to group data points at lower zooms and then un-group as a user is zoomed in. 
+
+To do this we have another function exposed as render prop of `groupPoints()`. This function takes two arguments, the first is your array of locations and the second is the radius for your grouping. Your locations array needs to be comprised of objects which needs to have at least the following fields:
+
+- `lat: Float`
+- `lon: Float`
+
+The function will return you an array of grouped locations with x & y coords already calculated and a nested array of all ypur original points in the group in case you need to perform other operations on them e.g.
+
+```javascript
+// CALL
+const groups = groupPoints(locations, 5);
+
+// RESULT
+[{
+  lat: 0.0000, 
+  lon: 0.0000, 
+  x: '50%', 
+  y: '50%',
+  points: [
+    // Your original data
+  ]
+}]
+
+```
+
+The implementation in the [grouped points storybook](https://salocreative.github.io/react-interactive-map/?selectedKind=Mercator%20Map&selectedStory=Grouped%20points) is as follows. 
+
+```javascript
+const locations = object('Locations', [
+  { name: 'LDN', lat: 51.5074, lon: -0.1278 },
+  { name: 'BIR', lat: 52.4862, lon: -1.8904 },
+  { name: 'NY', lat: 40.7128, lon: -74.0060 },
+  { name: 'AUK', lat: -36.848, lon: 174.7633 },
+  { name: 'AMS', lat: 52.3680, lon: 4.9036 },
+  { name: 'CAT', lat: -33.9249, lon: 18.4241 },
+  { name: 'PAN', lat: 8.5380, lon: -80.7821 },
+  { name: 'RIO', lat: -22.9068, lon: -43.1729 }
+]);
+```
+
+```javascript
+<MercatorMap>
+  { ({ groupPoints }) => groupPoints(locations, radius).map(location => {
+    const { x, y, lat, lon, points } = location;
+    return (
+      <span
+        key={ `${ lat }-${ lon }` }
+        style={ {
+          height: '15px',
+          width: '15px',
+          borderRadius: '50%',
+          background: 'red',
+          position: 'absolute',
+          left: `calc(${ x }% - 7.5px)`,
+          top: `calc(${ y }% - 7.5px)`,
+          color: '#fff',
+          fontSize: '9px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+      } }
+      >
+        { points.length }
+      </span>
+    );
+  }) }
+</MercatorMap>
+```
 
 ## API
 

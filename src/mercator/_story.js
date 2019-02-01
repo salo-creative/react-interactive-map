@@ -44,13 +44,13 @@ stories.add(
     const hideAntarctica = boolean('Hide Antarctica', true);
     const baseColor = text('Base color', '#cccccc');
     const locations = object('Locations', [
-      { label: 'LDN', lat: 51.5074, lon: -0.1278 },
-      { label: 'NY', lat: 40.7128, lon: -74.0060 },
-      { label: 'AUK', lat: -36.848, lon: 174.7633 },
-      { label: 'AMS', lat: 52.3680, lon: 4.9036 },
-      { label: 'CAT', lat: -33.9249, lon: 18.4241 },
-      { label: 'PAN', lat: 8.5380, lon: -80.7821 },
-      { label: 'RIO', lat: -22.9068, lon: -43.1729 }
+      { name: 'LDN', lat: 51.5074, lon: -0.1278 },
+      { name: 'NY', lat: 40.7128, lon: -74.0060 },
+      { name: 'AUK', lat: -36.848, lon: 174.7633 },
+      { name: 'AMS', lat: 52.3680, lon: 4.9036 },
+      { name: 'CAT', lat: -33.9249, lon: 18.4241 },
+      { name: 'PAN', lat: 8.5380, lon: -80.7821 },
+      { name: 'RIO', lat: -22.9068, lon: -43.1729 }
     ]);
     const center = object('Center', { lat: 51.5074, lon: -0.1278 });
     const zoom = number('Zoom', 1);
@@ -102,14 +102,14 @@ stories.add(
     const hideAntarctica = boolean('Hide Antarctica', true);
     const baseColor = text('Base color', '#cccccc');
     const locations = object('Locations', [
-      { label: 'LDN', lat: 51.5074, lon: -0.1278 },
-      { label: 'BIR', lat: 52.4862, lon: -1.8904 },
-      { label: 'NY', lat: 40.7128, lon: -74.0060 },
-      { label: 'AUK', lat: -36.848, lon: 174.7633 },
-      { label: 'AMS', lat: 52.3680, lon: 4.9036 },
-      { label: 'CAT', lat: -33.9249, lon: 18.4241 },
-      { label: 'PAN', lat: 8.5380, lon: -80.7821 },
-      { label: 'RIO', lat: -22.9068, lon: -43.1729 }
+      { name: 'LDN', lat: 51.5074, lon: -0.1278 },
+      { name: 'BIR', lat: 52.4862, lon: -1.8904 },
+      { name: 'NY', lat: 40.7128, lon: -74.0060 },
+      { name: 'AUK', lat: -36.848, lon: 174.7633 },
+      { name: 'AMS', lat: 52.3680, lon: 4.9036 },
+      { name: 'CAT', lat: -33.9249, lon: 18.4241 },
+      { name: 'PAN', lat: 8.5380, lon: -80.7821 },
+      { name: 'RIO', lat: -22.9068, lon: -43.1729 }
     ]);
     const center = object('Center', { lat: 51.5074, lon: -0.1278 });
     const radius = number('Group radius', 5);
@@ -126,10 +126,10 @@ stories.add(
               radius={ radius }
             >
               { ({ groupPoints }) => groupPoints(locations, radius).map(location => {
-                const { x, y, name, points } = location;
+                const { x, y, lat, lon, points } = location;
                 return (
                   <span
-                    key={ name }
+                    key={ `${ lat }-${ lon }` }
                     style={ {
                       height: '15px',
                       width: '15px',
