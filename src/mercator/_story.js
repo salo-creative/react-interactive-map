@@ -23,31 +23,30 @@ const calculateGroupPosition = (group) => {
 
 const cleanedLocations = (zoom = 1) => {
   const mappedLocations = [];
+  const latResolution = zoom ? (2.5 / zoom) : 2.5;
+  const lonResolution = zoom ? (5 / zoom) : 5;
+
   return locations.map(location => {
-  // Check if location already grabbed as part of an
-  // earlier grouping and only proceed if not grouped
+    // Check if location already grabbed as part of an
+    // earlier grouping and only proceed if not grouped
     const alreadyMapped = indexOf(mappedLocations, location);
-    console.log(zoom);
-    const latResolution = zoom ? (2.5 / zoom) : 2.5;
-    const lonResolution = zoom ? (5 / zoom) : 5;
   
     if (alreadyMapped === -1) {
+      mappedLocations.push(location);
       const groupedLocations = [location];
-      locations.forEach(item => {
-        if (item !== location) {
+      const remainingLocations = locations.filter(item => indexOf(mappedLocations, item) === -1);
+      remainingLocations.forEach(item => {
         // CHECK IF LOCATION COLLIDES WITH ANOTHER
-          const latCollision = location.lat - item.lat < latResolution && location.lat - item.lat > -latResolution;
-          const lonCollision = location.lon - item.lon < lonResolution && location.lon - item.lon > -lonResolution;
-          if (latCollision && lonCollision) {
-          // EXCLUDE FROM A LATER MAP AND STORE
-            mappedLocations.push(item);
-            groupedLocations.push(item);
-          }
+        const latCollision = location.lat - item.lat < latResolution && location.lat - item.lat > -latResolution;
+        const lonCollision = location.lon - item.lon < lonResolution && location.lon - item.lon > -lonResolution;
+        if (latCollision && lonCollision) {
+        // EXCLUDE FROM A LATER MAP AND STORE
+          mappedLocations.push(item);
+          groupedLocations.push(item);
         }
       });
 
       const { lat, lon } = calculateGroupPosition(groupedLocations);
-
       return {
         lat,
         lon,
