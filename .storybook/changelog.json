@@ -1,4 +1,5 @@
 [
+{ "user": "SaloCreative", "version": "v2.1.0", "commit": "Addign point grouping" },
 { "user": "SaloCreative", "version": "v2.0.0", "commit": "Changing zoom center to be a latitude and longitude" },
 { "user": "SaloCreative", "version": "v1.3.1", "commit": "Fixing storybook example" },
 { "user": "SaloCreative", "version": "v1.3.0", "commit": "Adding zoom functionality" },
