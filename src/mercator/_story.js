@@ -100,7 +100,6 @@ stories.add(
   'Grouped points',
   () => {
     const hideAntarctica = boolean('Hide Antarctica', true);
-    const maxWidth = text('Max width', '100%');
     const baseColor = text('Base color', '#cccccc');
     const locations = object('Locations', [
       { name: 'LDN', lat: 51.5074, lon: -0.1278 },
@@ -124,7 +123,6 @@ stories.add(
               baseColor={ baseColor }
               zoom={ zoom }
               center={ center }
-              maxWidth={ maxWidth }
             >
               { ({ groupPoints }) => groupPoints(locations, radius).map(location => {
                 const { x, y, lat, lon, points } = location;

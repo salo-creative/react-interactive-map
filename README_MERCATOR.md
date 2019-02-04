@@ -144,5 +144,3 @@ const locations = object('Locations', [
 **`zoom: Float` -** factor the map should be zoomed in by. default is 1
 
 **`center: Object` -** e.g `center={ { lat: 51.5074, lon: -0.1278 } }` where the map focus is and therefore zoom origin. The default is `0 0`. Prop takes a latitude and longitude and then calculates the coordinates for focus. At zoom 1 or lower the map will be centered on the screen
-
-**`maxWidth: String` -** the maximum width the map can be

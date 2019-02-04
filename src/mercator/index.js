@@ -10,7 +10,6 @@ const Wrapper = styled.div`
   position: relative;
   padding: ${ ({ hideAntarctica }) => (hideAntarctica ? '0 0 56%' : '0 0 75%') };
   width: 100%;
-  max-width: ${ ({ maxWidth }) => maxWidth };
   margin: 0 auto;
   overflow: hidden;
 `;
@@ -184,7 +183,6 @@ class MercatorMap extends React.Component {
 }
 
 MercatorMap.defaultProps = {
-  maxWidth: '100%',
   hideAntarctica: true,
   baseColor: '#cccccc',
   zoom: 1,
@@ -198,7 +196,6 @@ MercatorMap.propTypes = {
   children: PropTypes.any.isRequired,
   hideAntarctica: PropTypes.bool,
   baseColor: PropTypes.string,
-  maxWidth: PropTypes.string,
   zoom: PropTypes.number,
   center: PropTypes.shape({
     lat: PropTypes.number.isRequired,
