@@ -1,4 +1,5 @@
 [
+{ "user": "SaloCreative", "version": "v2.2.2", "commit": "Making grouping functions seperately importable" },
 { "user": "SaloCreative", "version": "v2.2.1", "commit": "Removing max-width due to poor render beahviour" },
 { "user": "SaloCreative", "version": "v2.2.0", "commit": "Adding max-width for mercator map and fixing antartica offset" },
 { "user": "SaloCreative", "version": "v2.1.0", "commit": "Addign point grouping" },

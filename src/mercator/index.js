@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { indexOf } from 'lodash';
 
 // COMPONENTS
 import Map from './_map';
+
+// HELPERS
+import { evalCoordinates, groupPoints } from '../helpers';
 
 const Wrapper = styled.div`
   position: relative;
@@ -34,23 +36,6 @@ const MapWrapper = styled.div`
 `;
 
 class MercatorMap extends React.Component {
-  evalCoordinates = ({ lat, lon }) => {
-    // lat = N - S
-    // lon = W - E
-    let x = 0;
-    let y = 0;
-    const mapWidth = 1717;
-    const mapHeight = 1291;
-    // get x value
-    x = ((((lon + 180) * (mapWidth / 360)) / mapWidth) * 100) - 2.75;
-    // convert from degrees to radians
-    const latRad = (lat * Math.PI) / 180;
-    // get y value
-    const mercN = Math.log(Math.tan((Math.PI / 4) + (latRad / 2)));
-    y = ((((mapHeight / 2) - (mapWidth * mercN / (2 * Math.PI))) / mapHeight) * 100) - 0.85;
-    return { x, y };
-  }
-
   calculateZoomSize = () => {
     const { zoom } = this.props;
     if (!isNaN(parseFloat(zoom))) {
@@ -62,7 +47,7 @@ class MercatorMap extends React.Component {
   calculatePosition = (size) => {
     const { zoom, hideAntarctica, center } = this.props;
     const factor = 100 - parseInt(size, 10);
-    const { x, y } = this.evalCoordinates(center);
+    const { x, y } = evalCoordinates(center);
 
     // HANDLE NO ZOOM
     if (factor === 0) {
@@ -109,60 +94,13 @@ class MercatorMap extends React.Component {
     };
   }
 
-  calculateGroupPosition = (group) => {
-    const lat = group.reduce((acc, item) => acc + item.lat, 0) / group.length;
-    const lon = group.reduce((acc, item) => acc + item.lon, 0) / group.length;
-    return { lat, lon };
-  };
-
-  groupPoints = (locations, radius = 5) => {
-    const { zoom } = this.props;
-    const mappedLocations = [];
-    const latResolution = zoom ? ((radius / 2) / zoom) : 2.5;
-    const lonResolution = zoom ? (radius / zoom) : 5;
-
-    return locations.map(location => {
-    // Check if location already grabbed as part of an
-    // earlier grouping and only proceed if not grouped
-      const alreadyMapped = indexOf(mappedLocations, location);
-  
-      if (alreadyMapped === -1) {
-        mappedLocations.push(location);
-        const groupedLocations = [location];
-        const remainingLocations = locations.filter(item => indexOf(mappedLocations, item) === -1);
-        remainingLocations.forEach(item => {
-        // CHECK IF LOCATION COLLIDES WITH ANOTHER
-          const latCollision = location.lat - item.lat < latResolution && location.lat - item.lat > -latResolution;
-          const lonCollision = location.lon - item.lon < lonResolution && location.lon - item.lon > -lonResolution;
-          if (latCollision && lonCollision) {
-            // EXCLUDE FROM A LATER MAP AND STORE
-            mappedLocations.push(item);
-            groupedLocations.push(item);
-          }
-        });
-
-        const { lat, lon } = this.calculateGroupPosition(groupedLocations);
-        const { x, y } = this.evalCoordinates({ lat, lon });
-        return {
-          lat,
-          lon,
-          x,
-          y,
-          points: groupedLocations
-        };
-      }
-      return null;
-    }).filter(i => i);
-  }
-
   render() {
-    const { children, hideAntarctica, baseColor, maxWidth } = this.props;
+    const { children, hideAntarctica, baseColor, zoom } = this.props;
     const size = this.calculateZoomSize();
     const { left, top } = this.calculatePosition(size);
     return (
       <Wrapper
         hideAntarctica={ hideAntarctica }
-        maxWidth={ maxWidth }
       >
         <InnerWrapper>
           <MapWrapper
@@ -174,7 +112,7 @@ class MercatorMap extends React.Component {
               hideAntarctica={ hideAntarctica }
               baseColor={ baseColor }
             />
-            { children({ evalCoordinates: this.evalCoordinates, groupPoints: this.groupPoints }) }
+            { children({ evalCoordinates, groupPoints: (locations, radius) => groupPoints({ locations, radius, zoom }) }) }
           </MapWrapper>
         </InnerWrapper>
       </Wrapper>
