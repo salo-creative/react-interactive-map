@@ -67,27 +67,30 @@ class MercatorMap extends React.Component {
     }
 
     // HANDLE ORIGIN ON ZOOM IN
-    let left = parseInt(x, 10);
-    let top = parseInt(y, 10);
+    let left = parseFloat(x, 10);
+    let top = parseFloat(y, 10);
 
     // Eval left position
     if (left >= 0 && left <= 100) {
-      left *= (zoom - 1);
+      left = (left * (zoom - 1) - (50 - left));
     } else if (left > 100) {
       left = (zoom - 1) * 100;
     } else {
       left = 0;
     }
 
-    // Eval top pos
+    // Eval top position
     if (top >= 0 && top <= 100) {
-      top = (top * (zoom - 1)) - (hideAntarctica && top > 50 ? (25 * (zoom - 1)) : 0);
+      if (hideAntarctica) {
+        top = (top * (zoom - 1)) - ((50 - 12.5) - top);
+      } else {
+        top = (top * (zoom - 1)) - (50 - top);
+      }
     } else if (top > 100) {
       top = (zoom - 1) * (hideAntarctica ? 75 : 100);
     } else {
       top = 0;
     }
-
     return {
       left: `-${ left }%`,
       top: `-${ top }%`
