@@ -32,7 +32,7 @@ const MapWrapper = styled.div`
   left: ${ ({ left }) => left };
   width: ${ ({ zoom }) => zoom };
   height: ${ ({ zoom }) => zoom };
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s linear;
 `;
 
 class MercatorMap extends React.Component {

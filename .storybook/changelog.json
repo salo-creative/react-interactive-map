@@ -1,4 +1,5 @@
 [
+{ "user": "SaloCreative", "version": "v2.2.4", "commit": "Simplifying transition styles" },
 { "user": "SaloCreative", "version": "v2.2.3", "commit": "Fixing centering calculation" },
 { "user": "SaloCreative", "version": "v2.2.2", "commit": "Making grouping functions seperately importable" },
 { "user": "SaloCreative", "version": "v2.2.1", "commit": "Removing max-width due to poor render beahviour" },
