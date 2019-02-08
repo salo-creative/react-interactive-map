@@ -15,7 +15,7 @@ const SVG = styled.svg`
     stroke-opacity: 1;
     stroke-width:0.5;
     cursor: pointer;
-    transition: all 0.3s linear;
+    transition: all 0.3s ease-in-out;
     fill: ${ ({ baseColor }) => baseColor };
     opacity: 1;
     &:hover:not(.region-disabled):not(.region-active) {
