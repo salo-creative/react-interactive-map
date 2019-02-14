@@ -1,4 +1,4 @@
-import { indexOf } from 'lodash';
+import { indexOf, isEmpty } from 'lodash';
 
 /**
  * EVALUATE COORDINATES FROM LATITUDE & LONGITUDE
@@ -24,15 +24,28 @@ export const evalCoordinates = ({ lat, lon }) => {
 };
 
 /**
- * CALCULATE GROUPED POINTS CENTER
+ * EVALUATE CENTER OF AN ARRAY OF COORDINATES
  *
- * @param {*} group
+ * @param {*} { locations: [{ lat: Float, lon: Float }] }
  * @returns
  */
-const calculateGroupPosition = (group) => {
-  const lat = group.reduce((acc, item) => acc + item.lat, 0) / group.length;
-  const lon = group.reduce((acc, item) => acc + item.lon, 0) / group.length;
-  return { lat, lon };
+export const evalCenter = ({ locations }) => {
+  if (isEmpty(locations)) return null;
+  // Reduce lats and longs to get array of all location coords
+  const aggData = locations.reduce((acc, item) => {
+    return {
+      lats: [...acc.lats, item.lat].sort(), // sort so they are in order
+      lons: [...acc.lons, item.lon].sort()
+    };
+  }, { lats: [], lons: [] });
+ 
+  const centerLat = (aggData.lats[0] + aggData.lats[aggData.lats.length - 1]) / 2; // take limits and calculate the range
+  const centerLon = (aggData.lons[0] + aggData.lons[aggData.lons.length - 1]) / 2;
+
+  return {
+    lat: centerLat,
+    lon: centerLon
+  };
 };
 
 /**
@@ -66,7 +79,7 @@ export const groupPoints = ({ locations, radius = 5, zoom = 1 }) => {
         }
       });
 
-      const { lat, lon } = calculateGroupPosition(groupedLocations);
+      const { lat, lon } = evalCenter({ locations: groupedLocations });
       const { x, y } = evalCoordinates({ lat, lon });
       return {
         lat,
