@@ -4,7 +4,7 @@ stages:
   - "test"
   - "build"
   - "publish"
-  - "publish"
+  - "deploy"
 steps:
   main_clone:
     type: "git-clone"
