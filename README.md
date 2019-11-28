@@ -59,7 +59,6 @@ yarn demo
 
 ## Publishing
 
-// add this when finalised
-1. Merge feature changes into master branch via PR
-3. Pull master locally and then run `npm run release`
-3. Follow instructions from script. If successful the package should be tested and released automatically via CI pipeline
+1. Open a PR from your feature back to master
+2. When approved run npm run release locally to add changelog and increment version number
+3. When development pipeline completes, hit merge and the publish pipeline will release your changes
