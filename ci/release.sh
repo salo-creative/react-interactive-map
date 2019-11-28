@@ -22,12 +22,7 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
   git add -A
   git commit -m "$message"
   git tag -a $V -m "$message"
-  git push origin master --tags
+  git push --tags
 
   echo "==== ending git logic ===="
-fi
-
-read -r -p "Run storybook release? [y/N] " response
-if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
-  npm run deploy-storybook
 fi
