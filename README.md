@@ -59,7 +59,7 @@ yarn demo
 
 ## Publishing
 
-1. Open a PR from your feature back to master
-2. When approved run `yarn release:prep` locally to add changelog and increment version number
+1. Before opening a PR, run `yarn release:prep` locally to add changelog and increment version number on your branch
+2. Open a PR from your feature back to master
 3. When development pipeline completes, hit merge and the publish pipeline will release your changes
 4. If you want to deploy to GitHub pages then run `yarn release:ghp`. This should only be run from master so not before a PR is merged
