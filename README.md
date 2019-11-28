@@ -20,7 +20,7 @@ import { SimpleMap } from '@salo/interactive-map';
 
 Implement as follows
 
-```javascript
+```javascripts
 <SimpleMap />
 ```
 
