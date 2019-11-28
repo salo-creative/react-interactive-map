@@ -42,4 +42,5 @@ steps:
     working_directory: ${{main_clone}}
     stage: "deploy"
     commands:
+      - yarn
       - yarn deploy-storybook
