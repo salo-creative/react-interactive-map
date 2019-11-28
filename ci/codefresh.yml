@@ -13,21 +13,21 @@ steps:
     stage: "clone"
     git: salocreative
   test:
-    image: node:10
+    image: node:12
     working_directory: ${{main_clone}}
     stage: "test"
     commands:
       - yarn
       - yarn test
   build:
-    image: node:10
+    image: node:12
     working_directory: ${{main_clone}}
     stage: "build"
     commands:
       - yarn
       - yarn bundle
   publish:
-    image: node:10
+    image: node:12
     working_directory: ${{main_clone}}
     stage: "publish"
     commands:

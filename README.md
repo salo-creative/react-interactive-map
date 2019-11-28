@@ -1,6 +1,6 @@
 # interactive-map
 
-DEMO here [https://salo-reative.github.io/react-interactive-map](https://salo-creative.github.io/react-interactive-map)
+DEMO here [https://salo-creative.github.io/react-interactive-map](https://salo-creative.github.io/react-interactive-map)
 
 ## Usage
 
