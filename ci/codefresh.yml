@@ -4,6 +4,7 @@ stages:
   - "test"
   - "build"
   - "publish"
+  - "publish"
 steps:
   main_clone:
     type: "git-clone"
@@ -26,13 +27,19 @@ steps:
     commands:
       - yarn
       - yarn bundle
-  publish:
+  # publish:
+  #   image: node:12
+  #   working_directory: ${{main_clone}}
+  #   stage: "publish"
+  #   commands:
+  #     - npm install -g npm-cli-login
+  #     - npm-cli-login -u "${{NPM_USER}}" -p "${{NPM_PASSWORD}}" -e "${{NPM_EMAIL}}"
+  #     - cp -rf .npmignore package.json ./dist
+  #     - cd ./dist
+  #     - npm publish
+  deploy:
     image: node:12
     working_directory: ${{main_clone}}
-    stage: "publish"
+    stage: "deploy"
     commands:
-      - npm install -g npm-cli-login
-      - npm-cli-login -u "${{NPM_USER}}" -p "${{NPM_PASSWORD}}" -e "${{NPM_EMAIL}}"
-      - cp -rf .npmignore package.json ./dist
-      - cd ./dist
-      - npm publish
+      - yarn deploy-storybook
