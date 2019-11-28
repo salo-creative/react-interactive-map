@@ -2,9 +2,13 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
-import { withKnobs, object, boolean, text, number } from '@storybook/addon-knobs';
+import {
+  withKnobs, object, boolean, text, number
+} from '@storybook/addon-knobs';
 import { withTests } from '@storybook/addon-jest';
-import { H2, Column, P, Row, colours } from '@salo/core-ui';
+import {
+  H2, Column, P, Row, colours
+} from '@salo/core-ui';
 
 import results from '../../.storybook/jest-test-results.json';
 import MercatorMap from './index';
@@ -46,16 +50,33 @@ stories.add(
   () => {
     const hideAntarctica = boolean('Hide Antarctica', true);
     const baseColor = text('Base color', '#cccccc');
+    const stroke = text('Stroke', '#fff');
     const locations = object('Locations', [
-      { name: 'LDN', lat: 51.5074, lon: -0.1278 },
-      { name: 'NY', lat: 40.7128, lon: -74.0060 },
-      { name: 'AUK', lat: -36.848, lon: 174.7633 },
-      { name: 'AMS', lat: 52.3680, lon: 4.9036 },
-      { name: 'CAT', lat: -33.9249, lon: 18.4241 },
-      { name: 'PAN', lat: 8.5380, lon: -80.7821 },
-      { name: 'RIO', lat: -22.9068, lon: -43.1729 }
+      {
+        name: 'LDN', lat: 51.5074, lon: -0.1278
+      },
+      {
+        name: 'NY', lat: 40.7128, lon: -74.0060
+      },
+      {
+        name: 'AUK', lat: -36.848, lon: 174.7633
+      },
+      {
+        name: 'AMS', lat: 52.3680, lon: 4.9036
+      },
+      {
+        name: 'CAT', lat: -33.9249, lon: 18.4241
+      },
+      {
+        name: 'PAN', lat: 8.5380, lon: -80.7821
+      },
+      {
+        name: 'RIO', lat: -22.9068, lon: -43.1729
+      }
     ]);
-    const center = object('Center', { lat: 51.5074, lon: -0.1278 });
+    const center = object('Center', {
+      lat: 51.5074, lon: -0.1278
+    });
     const zoom = number('Zoom', 1);
     return (
       <React.Fragment>
@@ -64,12 +85,15 @@ stories.add(
             <MercatorMap
               hideAntarctica={ hideAntarctica }
               baseColor={ baseColor }
+              stroke={ stroke }
               zoom={ zoom }
               center={ center }
             >
               { ({ evalCoordinates }) => locations.map(location => {
                 const { lat, lon, name } = location;
-                const coords = evalCoordinates({ lat, lon });
+                const coords = evalCoordinates({
+                  lat, lon
+                });
                 return (
                   <span
                     key={ name }
@@ -96,7 +120,11 @@ stories.add(
       </React.Fragment>
     );
   },
-  { info: { propTablesExclude: [StyledP, Wrapper, Column, H2, Row, React.Fragment] } }
+  {
+    info: {
+      propTablesExclude: [StyledP, Wrapper, Column, H2, Row, React.Fragment]
+    }
+  }
 );
 
 stories.add(
@@ -104,17 +132,36 @@ stories.add(
   () => {
     const hideAntarctica = boolean('Hide Antarctica', true);
     const baseColor = text('Base color', '#cccccc');
+    const stroke = text('Stroke', '#fff');
     const locations = object('Locations', [
-      { name: 'LDN', lat: 51.5074, lon: -0.1278 },
-      { name: 'BIR', lat: 52.4862, lon: -1.8904 },
-      { name: 'NY', lat: 40.7128, lon: -74.0060 },
-      { name: 'AUK', lat: -36.848, lon: 174.7633 },
-      { name: 'AMS', lat: 52.3680, lon: 4.9036 },
-      { name: 'CAT', lat: -33.9249, lon: 18.4241 },
-      { name: 'PAN', lat: 8.5380, lon: -80.7821 },
-      { name: 'RIO', lat: -22.9068, lon: -43.1729 }
+      {
+        name: 'LDN', lat: 51.5074, lon: -0.1278
+      },
+      {
+        name: 'BIR', lat: 52.4862, lon: -1.8904
+      },
+      {
+        name: 'NY', lat: 40.7128, lon: -74.0060
+      },
+      {
+        name: 'AUK', lat: -36.848, lon: 174.7633
+      },
+      {
+        name: 'AMS', lat: 52.3680, lon: 4.9036
+      },
+      {
+        name: 'CAT', lat: -33.9249, lon: 18.4241
+      },
+      {
+        name: 'PAN', lat: 8.5380, lon: -80.7821
+      },
+      {
+        name: 'RIO', lat: -22.9068, lon: -43.1729
+      }
     ]);
-    const center = object('Center', { lat: 51.5074, lon: -0.1278 });
+    const center = object('Center', {
+      lat: 51.5074, lon: -0.1278
+    });
     const radius = number('Group radius', 5);
     const zoom = number('Zoom', 1);
     return (
@@ -124,6 +171,7 @@ stories.add(
             <MercatorMap
               hideAntarctica={ hideAntarctica }
               baseColor={ baseColor }
+              stroke={ stroke }
               zoom={ zoom }
               center={ center }
             >
@@ -157,6 +205,10 @@ stories.add(
       </React.Fragment>
     );
   },
-  { info: { propTablesExclude: [StyledP, Wrapper, Column, H2, Row, React.Fragment] },
-  notes: README }
+  {
+    info: {
+      propTablesExclude: [StyledP, Wrapper, Column, H2, Row, React.Fragment]
+    },
+    notes: README
+  }
 );
