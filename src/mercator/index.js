@@ -98,7 +98,7 @@ class MercatorMap extends React.Component {
   }
 
   render() {
-    const { children, hideAntarctica, baseColor, zoom } = this.props;
+    const { children, hideAntarctica, baseColor, zoom, stroke } = this.props;
     const size = this.calculateZoomSize();
     const { left, top } = this.calculatePosition(size);
     return (
@@ -114,8 +114,14 @@ class MercatorMap extends React.Component {
             <Map
               hideAntarctica={ hideAntarctica }
               baseColor={ baseColor }
+              stroke={ stroke }
             />
-            { children({ evalCoordinates, groupPoints: (locations, radius) => groupPoints({ locations, radius, zoom }) }) }
+            { children({
+              evalCoordinates,
+              groupPoints: (locations, radius) => groupPoints({
+                locations, radius, zoom
+              })
+            }) }
           </MapWrapper>
         </InnerWrapper>
       </Wrapper>
@@ -126,6 +132,7 @@ class MercatorMap extends React.Component {
 MercatorMap.defaultProps = {
   hideAntarctica: true,
   baseColor: '#cccccc',
+  stroke: '#fff',
   zoom: 1,
   center: {
     lat: 0,
@@ -137,6 +144,7 @@ MercatorMap.propTypes = {
   children: PropTypes.any.isRequired,
   hideAntarctica: PropTypes.bool,
   baseColor: PropTypes.string,
+  stroke: PropTypes.string,
   zoom: PropTypes.number,
   center: PropTypes.shape({
     lat: PropTypes.number.isRequired,

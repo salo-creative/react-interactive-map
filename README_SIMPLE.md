@@ -9,13 +9,13 @@ The simple will render an `<svg>` based world map that can have active/disabled 
 Install
 
 ```
-yarn add @salocreative/interactive-map
+yarn add @salo/interactive-map
 ```
 
 Include
 
 ```javascript
-import SimpleMap from '@salocreative/interactive-map';
+import SimpleMap from '@salo/interactive-map';
 ```
 
 Implement as follows

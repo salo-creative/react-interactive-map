@@ -14,7 +14,7 @@ module.exports = {
         use: ['style-loader', 'raw-loader']
       },
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|gif|svg)$/,
         use: [
           {
             loader: 'url-loader',
@@ -51,6 +51,12 @@ module.exports = {
       failOnError: false,
       // set the current working directory for displaying module paths
       cwd: process.cwd()
+    }),
+    // Injects env variables to our app
+    new webpack.DefinePlugin({
+      'webpackVars': {
+        ENV: JSON.stringify('local') // This will need to change if the application is ever hosted
+      }
     })
   ]
 };
