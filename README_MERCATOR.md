@@ -12,12 +12,12 @@ This map is an SVG mercator projection (the accuracy is not 100% but its pretty 
 
 Install
 ```
-yarn add @salocreative/interactive-map
+yarn add @salo/interactive-map
 ```
 
 Include
 ```javascript
-import MercatorMap from '@salocreative/interactive-map';
+import MercatorMap from '@salo/interactive-map';
 ```
 
 ### Basic implementation
@@ -26,7 +26,7 @@ As the component is only giving you a relative positioned container and then all
 
 In order to calculate the position for you points on the map you can use the render prop `evalCoordinates`. This function takes an object of `{ lat: 0.00000, lon: 0.00000 }` as an argument and returns an object of `{ x: 50%, y: 50% }`. This means in your render you can pass in the lat and lon for your points and be given a % coordinate for positiong within the component (rember to account for your marker size).
 
-The implementation in the [basic storybook](https://salocreative.github.io/react-interactive-map/?selectedKind=Mercator%20Map&selectedStory=Basic) is as follows. 
+The implementation in the [basic storybook](https://salo-creative.github.io/react-interactive-map/?selectedKind=Mercator%20Map&selectedStory=Basic) is as follows. 
 
 ```javascript
 const locations = object('Locations', [
@@ -91,7 +91,7 @@ const groups = groupPoints(locations, 5);
 
 ```
 
-The implementation in the [grouped points storybook](https://salocreative.github.io/react-interactive-map/?selectedKind=Mercator%20Map&selectedStory=Grouped%20points) is as follows. 
+The implementation in the [grouped points storybook](https://salo-creative.github.io/react-interactive-map/?selectedKind=Mercator%20Map&selectedStory=Grouped%20points) is as follows. 
 
 ```javascript
 const locations = object('Locations', [

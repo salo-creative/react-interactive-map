@@ -4,8 +4,7 @@ import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
 import { withKnobs, object, boolean, text, number } from '@storybook/addon-knobs';
 import { withTests } from '@storybook/addon-jest';
-import withReadme from 'storybook-readme/with-readme';
-import { H2, Column, P, Row, colours } from '@salocreative/ui';
+import { H2, Column, P, Row, colours } from '@salo/core-ui';
 
 import results from '../../.storybook/jest-test-results.json';
 import MercatorMap from './index';
@@ -14,9 +13,13 @@ import MercatorMap from './index';
 import README from '../../README_MERCATOR.md';
 
 const stories = storiesOf('Mercator Map', module);
-stories.addDecorator(withReadme(README));
 stories.addDecorator(withKnobs);
-stories.addDecorator(withTests({ results })('mercatormap'));
+stories.addDecorator(withTests({
+  results
+}));
+stories.addParameters({
+  jest: ['mercatormap']
+});
 
 // STYLES
 const Wrapper = styled.div`
@@ -154,5 +157,6 @@ stories.add(
       </React.Fragment>
     );
   },
-  { info: { propTablesExclude: [StyledP, Wrapper, Column, H2, Row, React.Fragment] } }
+  { info: { propTablesExclude: [StyledP, Wrapper, Column, H2, Row, React.Fragment] },
+  notes: README }
 );

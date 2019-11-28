@@ -1,10 +1,46 @@
 {
-  "presets": ["react", "env"],
   "plugins": [
-    "transform-class-properties",
-    "transform-object-rest-spread",
-    "transform-react-display-name",
-    ["babel-plugin-styled-components", {
-      "ssr": true
-    }]]
+    "lodash",
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-proposal-class-properties",
+    [
+      "@babel/plugin-syntax-decorators",
+      {
+        "legacy": true
+      }
+    ],
+    [
+      "babel-plugin-styled-components",
+      {
+        "ssr": true
+      }
+    ]
+  ],
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules": false,
+        "useBuiltIns": "entry",
+        "corejs": 2,
+        "targets": {
+          "node": true,
+          "browsers": [
+            "last 3 versions",
+            "ie >= 11"
+          ]
+        }
+      }
+    ],
+    "@babel/react"
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        "@babel/preset-env",
+        "@babel/react"
+      ]
+    }
+  }
 }

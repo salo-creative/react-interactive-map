@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 read -r -p "Run package release? [y/N] " response
 if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
 
@@ -9,11 +10,6 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
 
   V="$(npm --no-git-tag-version version $version -f)"
 
-  echo "==== starting bundle ===="
-
-  npm run bundle
-
-  echo "==== ending bundle ===="
   echo "********"
   echo "==== starting changelog addition ===="
 
@@ -29,12 +25,6 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
   git push origin master --tags
 
   echo "==== ending git logic ===="
-
-  read -r -p "Publish package? [y/N] " response
-  if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
-    npm publish
-  fi
-
 fi
 
 read -r -p "Run storybook release? [y/N] " response
