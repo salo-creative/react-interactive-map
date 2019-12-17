@@ -1,4 +1,5 @@
 [
+{ "user": "Tim Stone", "version": "v3.0.3", "commit": "Upgraded packages" },
 { "user": "Rich Comber", "version": "v3.0.2", "commit": "Updating release scripts and process" },
 { "user": "Rich Comber", "version": "v3.0.0", "commit": "Updating packages and storybook. Making map more configurable" },
 { "user": "Rich Comber", "version": "v2.2.7", "commit": "Improving logic for calculating a groups center" },
