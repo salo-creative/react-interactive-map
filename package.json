@@ -1,6 +1,6 @@
 {
   "name": "@salo/interactive-map",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "An SVG interactive map",
   "main": "./index.js",
   "sideEffects": false,
