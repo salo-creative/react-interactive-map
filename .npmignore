@@ -32,3 +32,9 @@ yarn-error.log
 **/__snapshots__
 
 !assets
+.github
+ci
+.yarnrc
+dist
+PULL_REQUEST_TEMPLATE.md
+CODE_OF_CONDUCT.md

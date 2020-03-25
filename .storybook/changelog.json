@@ -1,4 +1,5 @@
 [
+{ "user": "Rich Comber", "version": "v3.0.5", "commit": "Fix build" },
 { "user": "Rich Comber", "version": "v3.0.4", "commit": "New CI/CD" },
 { "user": "Tim Stone", "version": "v3.0.3", "commit": "Upgraded packages" },
 { "user": "Rich Comber", "version": "v3.0.2", "commit": "Updating release scripts and process" },
