@@ -1,21 +1,22 @@
 import React from 'react';
 import { configure, addDecorator, setAddon } from '@storybook/react';
-import infoAddon, { setDefaults, withInfo } from '@storybook/addon-info';
-import { withOptions } from '@storybook/addon-options';
+import infoAddon, { withInfo } from '@storybook/addon-info';
 import { BrowserRouter } from 'react-router-dom';
+import { addParameters } from '@storybook/react';
+
 import { GlobalStyles, Normalise, Theme } from '@salo/core-ui';
 
 import './storybook.scss';
 
-addDecorator(
-  withOptions({
+addParameters({
+  options: {
     name: 'Interactive Map',
-    hierarchyRootSeparator: /\|/,
-    url: 'https://github.com/salo-creative/react-interactive-map',
+    showRoots: true,
     showAddonPanel: true,
-    addonPanelInRight: true
-  })
-)
+    addonPanelInRight: true,
+    url: 'https://github.com/salo-creative/react-interactive-map'
+  },
+});
 
 addDecorator(withInfo({
   inline: true,
@@ -42,24 +43,20 @@ addDecorator(withInfo({
   }
 }))
 
-addDecorator(story => (
-  <BrowserRouter>
-    <Theme>
-      <div>
-        <Normalise />
-        <GlobalStyles />
-        { story() }
-      </div>
-    </Theme>
-  </BrowserRouter>
-));
-
-
-function loadStories() {
-  require('../src/simple/_story');
-  require('../src/mercator/_story');
-}
+addDecorator(story => {
+  return (
+    <BrowserRouter>
+      <Theme>
+          <Normalise />
+          <GlobalStyles />
+            { story() }
+        </Theme>
+    </BrowserRouter>
+  );
+} );
 
 setAddon(infoAddon);
 
-configure(loadStories, module);
+configure([
+  require.context('../src', true, /_story\.js$/)
+], module);

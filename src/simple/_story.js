@@ -2,9 +2,11 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
-import { withKnobs, array, text } from '@storybook/addon-knobs';
+import { withKnobs, text } from '@storybook/addon-knobs';
 import { withTests } from '@storybook/addon-jest';
-import { H2, Column, P, Row, colours } from '@salo/core-ui';
+import {
+  H2, Column, P, Row, colours
+} from '@salo/core-ui';
 
 import results from '../../.storybook/jest-test-results.json';
 import SimpleMap from './index';
@@ -21,7 +23,6 @@ stories.addParameters({
   jest: ['simplemap']
 });
 
-
 // STYLES
 const Wrapper = styled.div`
   padding: 40px 10px 10px;
@@ -33,7 +34,6 @@ const Wrapper = styled.div`
   background: ${ colours.paleGrey };
 `;
 
-
 const StyledP = styled(P)`
   text-align: center;
   font-weight: 700;
@@ -42,29 +42,43 @@ const StyledP = styled(P)`
   background: #fff;
 `;
 
+export const Basic = () => {
+  const activeColor = text('Active color', '#00aced');
+  const baseColor = text('Base color', '#cccccc');
+  const active = ['CA', 'GB', 'AU'];
+  const disabled = ['US'];
+  return (
+    <React.Fragment>
+      <Row>
+        <Column>
+          <SimpleMap
+            active={ active }
+            disabled={ disabled }
+            activeColor={ activeColor }
+            baseColor={ baseColor }
+          />
+        </Column>
+      </Row>
+    </React.Fragment>
+  );
+};
 
-stories.add(
-  'Basic',
-  () => {
-    const activeColor = text('Active color', '#00aced');
-    const baseColor = text('Base color', '#cccccc');
-    const active = ['CA', 'GB', 'AU'];
-    const disabled = ['US'];
-    return (
-      <React.Fragment>
-        <Row>
-          <Column>
-            <SimpleMap
-              active={ active }
-              disabled={ disabled }
-              activeColor={ activeColor }
-              baseColor={ baseColor }
-            />
-          </Column>
-        </Row>
-      </React.Fragment>
-    );
-  },
-  { info: { propTablesExclude: [StyledP, Wrapper, Column, H2, Row, React.Fragment] },
-  notes: README }
-);
+Basic.story = {
+  decorators: [
+    withKnobs,
+    withTests({
+      results
+    })
+  ],
+  parameters: {
+    notes: README,
+    jest: ['simplemap'],
+    info: {
+      propTablesExclude: [StyledP, Wrapper, Column, H2, Row, React.Fragment]
+    }
+  }
+};
+
+export default {
+  title: 'Simple Map'
+};
